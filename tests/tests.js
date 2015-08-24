@@ -5,6 +5,8 @@
 	// Test framework tests
 	//-------------------------------------------------------------------------------------------//
 	var Tests = {
+		_memberVar: 12345,
+
 		beforeTest: function () {
 			Test.log("Before all tests");
 		},
@@ -15,6 +17,10 @@
 
 		_notExecuted: function () {
 			Assert.fail("This code should not be executed");
+		},
+
+		invokedWithCorrectThis: function () {
+			Assert.isSame(12345, this._memberVar);
 		},
 
 		passed: function () {

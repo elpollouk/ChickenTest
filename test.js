@@ -245,7 +245,7 @@
 			test.class.beforeTest && test.class.beforeTest();
 			test.func.before && test.func.before();
 
-			test.func();
+			test.func.apply(test.class);
 
 			_progress.passed++;
 			_testComplete(true);
