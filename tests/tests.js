@@ -72,43 +72,42 @@
 		},
 
 		passExpectedException_any: function () {
-			Assert.expectedException({
-				errorMessage: "Didn't throw an exception"
-			});
-			throw new Error();
+			Assert.expectedException({}, function () {
+				throw new Error();
+			}, "Didn't throw an exception");
 		},
 
 		passExpectedException_type: function () {
 			Assert.expectedException({
 				type: RangeError,
-				errorMessage: "Didn't throw right type of exception"
-			});
-			throw new RangeError();
+			}, function () {
+				throw new RangeError();
+			}, "Didn't throw right type of exception");
 		},
 
 		passExpectedException_exactMatch: function () {
 			Assert.expectedException({
 				message: "Expected Exception",
-				errorMessage: "Message didn't match"
-			});
-			throw new Error("Expected Exception");
+			}, function () {
+				throw new Error("Expected Exception");
+			}, "Message didn't match");
 		},
 
 		passExpectedException_regexMatch: function () {
 			Assert.expectedException({
 				message: /Expected '.+' Exception/,
-				errorMessage: "Message didn't match"
-			});
-			throw new Error("Expected 'Foo' Exception");
+			}, function () {
+				throw new Error("Expected 'Foo' Exception");
+			}, "Message didn't match");
 		},
 
 		passExpectedException_matchTypeAndMessage: function () {
 			Assert.expectedException ({
 				type: URIError,
-				message: /Some .+ exception/,
-				errorMessage: "Type and message didn't match"
-			});
-			throw new URIError("Some other exception");
+				message: /Some .+ exception/
+			}, function () {
+				throw new URIError("Some other exception");
+			}, "Type and message didn't match");
 		},
 
 		failIsEqual: function () {
@@ -171,28 +170,26 @@
 		},
 
 		failExpectedException_noneThrown: function () {
-			Assert.expectedException({
-				errorMessage: "failExpectedException_noneThrown passed"
-			});
 			Test.log("This test should fail.")
+			Assert.expectedException({}, function () {}, "failExpectedException_noneThrown passed");
 		},
 
 		failExpectedException_wrongTypeThrown: function () {
+			Test.log("This test should fail.")
 			Assert.expectedException({
 				type: RangeError,
-				errorMessage: "failExpectedException_wrongTypeThrown passed"
-			});
-			Test.log("This test should fail.")
-			throw new Error();
+			}, function () {
+				throw new Error();
+			}, "failExpectedException_wrongTypeThrown passed");
 		},
 
 		failExpectedException_wrongMessageThrown: function () {
+			Test.log("This test should fail.")
 			Assert.expectedException({
 				message: /not matched/,
-				errorMessage: "failExpectedException_wrongMessageThrown passed"
-			});
-			Test.log("This test should fail.")
-			throw new Error("Foo");
+			}, function () {
+				throw new Error("Foo");
+			}, "failExpectedException_wrongMessageThrown passed");
 		},
 
 		mock_withFunction: function () {
