@@ -106,7 +106,7 @@
 			document.getElementById("output").appendChild(containerDiv);
 
 			// Function to pass or fail the test
-			return function complete(passed) {
+			return function complete(passed, errorMessage) {
 				if (passed) {
 					containerDiv.classList.add("passed");
 					passFailSpan.innerText = "[PASSED]";
@@ -114,7 +114,7 @@
 				}
 				else {
 					containerDiv.classList.add("failed");
-					passFailSpan.innerText = "[FAILED]";
+					passFailSpan.innerText = "[FAILED] - " + errorMessage;
 					passFailSpan.parentElement.style.color = "red";
 				}
 			};
@@ -232,6 +232,11 @@
 		return fromAssert;
 	};
 
+	// Returns the first line of an exception to use as a summary
+	var _getExceptionSummary = function _getExceptionSummary(ex) {
+		return ex.message.split("\n")[0];
+	};
+
 	// Function to update the current progress
 	var _updateProgress = function _updateProgress() {
 		document.getElementById("total").innerText = "Total = " + (_progress.passed + _progress.failed);
@@ -255,7 +260,7 @@
 		catch (e) {
 			// Log the test failure
 			_progress.failed++;
-			_testComplete(false);
+			_testComplete(false, _getExceptionSummary(e));
 			Test.logException(e);
 		}
 
