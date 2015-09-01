@@ -71,6 +71,46 @@
 			Assert.isNotNull({});
 		},
 
+		passExpectedException_any: function () {
+			Assert.expectedException({
+				errorMessage: "Didn't throw an exception"
+			});
+			throw new Error();
+		},
+
+		passExpectedException_type: function () {
+			Assert.expectedException({
+				type: RangeError,
+				errorMessage: "Didn't throw right type of exception"
+			});
+			throw new RangeError();
+		},
+
+		passExpectedException_exactMatch: function () {
+			Assert.expectedException({
+				message: "Expected Exception",
+				errorMessage: "Message didn't match"
+			});
+			throw new Error("Expected Exception");
+		},
+
+		passExpectedException_regexMatch: function () {
+			Assert.expectedException({
+				message: /Expected '.+' Exception/,
+				errorMessage: "Message didn't match"
+			});
+			throw new Error("Expected 'Foo' Exception");
+		},
+
+		passExpectedException_matchTypeAndMessage: function () {
+			Assert.expectedException ({
+				type: URIError,
+				message: /Some .+ exception/,
+				errorMessage: "Type and message didn't match"
+			});
+			throw new URIError("Some other exception");
+		},
+
 		failIsEqual: function () {
 			Test.log("This test should fail.")
 			Assert.isEqual(2, 3, "isEqual Passed");
@@ -128,6 +168,31 @@
 		failFail: function () {
 			Test.log("This test should fail.")
 			Assert.fail("fail passed");
+		},
+
+		failExpectedException_noneThrown: function () {
+			Assert.expectedException({
+				errorMessage: "failExpectedException_noneThrown passed"
+			});
+			Test.log("This test should fail.")
+		},
+
+		failExpectedException_wrongTypeThrown: function () {
+			Assert.expectedException({
+				type: RangeError,
+				errorMessage: "failExpectedException_wrongTypeThrown passed"
+			});
+			Test.log("This test should fail.")
+			throw new Error();
+		},
+
+		failExpectedException_wrongMessageThrown: function () {
+			Assert.expectedException({
+				message: /not matched/,
+				errorMessage: "failExpectedException_wrongMessageThrown passed"
+			});
+			Test.log("This test should fail.")
+			throw new Error("Foo");
 		},
 
 		mock_withFunction: function () {
