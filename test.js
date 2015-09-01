@@ -83,16 +83,18 @@
 		// Add a test entry to the output
 		// Returns a function to indicate if the test has passed or failed
 		addTestEntry: function addTestEntry(testName) {
-			var div = document.createElement("div");
-			div.innerText = testName + " ";
-			var span = document.createElement("span");
-			span.innerText = "[...]";
-			div.appendChild(span);
+			var containerDiv = document.createElement("div");
+			var titleDiv = document.createElement("div");
+			titleDiv.innerText = testName + " ";
+			var passFailSpan = document.createElement("span");
+			passFailSpan.innerText = "[...]";
+			titleDiv.appendChild(passFailSpan);
+			containerDiv.appendChild(titleDiv);
 
 			// Set up the output div
 			_logDiv = document.createElement("div");
 			_logDiv.style.display = "none";
-			div.onclick = function () {
+			titleDiv.onclick = function () {
 				if (this.style.display === "none") {
 					this.style.display = "block";
 				}
@@ -100,20 +102,20 @@
 					this.style.display = "none";
 				}
 			}.bind(_logDiv);
-			div.appendChild(_logDiv);
-			document.getElementById("output").appendChild(div);
+			containerDiv.appendChild(_logDiv);
+			document.getElementById("output").appendChild(containerDiv);
 
 			// Function to pass or fail the test
 			return function complete(passed) {
 				if (passed) {
-					div.classList.add("passed");
-					span.innerText = "[PASSED]";
-					span.parentElement.style.color = "green";
+					containerDiv.classList.add("passed");
+					passFailSpan.innerText = "[PASSED]";
+					passFailSpan.parentElement.style.color = "green";
 				}
 				else {
-					div.classList.add("failed");
-					span.innerText = "[FAILED]";
-					span.parentElement.style.color = "red";
+					containerDiv.classList.add("failed");
+					passFailSpan.innerText = "[FAILED]";
+					passFailSpan.parentElement.style.color = "red";
 				}
 			};
 		},
