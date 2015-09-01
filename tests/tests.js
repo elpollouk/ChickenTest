@@ -19,6 +19,11 @@
 			Assert.fail("This code should not be executed");
 		},
 
+		htmlEscape: function () {
+			var text = Test.htmlEscape("<> \n\r\n\r");
+			Assert.isEqual("&lt;&gt;&nbsp;<br /><br /><br />", text);
+		},
+
 		invokedWithCorrectThis: function () {
 			Assert.isSame(12345, this._memberVar);
 		},
@@ -318,7 +323,7 @@
 			Assert.isEqual(2, spy.exceptions.length, "Wrong number of exceptions saved");
 			Assert.isEqual("Spied Exception", spy.exceptions[0].message, "Wrong exception saved");
 			Assert.isEqual("Spied Exception", spy.exceptions[1].message, "Wrong exception saved");
-		}
+		},
 	};
 
 	Tests.passedWithBeforeAndAfter.before = function () {
