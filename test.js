@@ -362,9 +362,10 @@
 				var cls = window.Tests[className];
 				for (var testName in cls) {
 					// Script private and before/after test functions
-					if (testName != "beforeTest"
-					 && testName != "afterTest"
-					 && testName[0] != "_"
+					if (testName !== "beforeTest"
+					 && testName !== "afterTest"
+					 && testName[0] !== "_"
+					 && typeof cls[testName] === "function"
 					 && cls.hasOwnProperty(testName)) {
 					 	// Looks to be a valid test, add it to the list
 						_testList.push({

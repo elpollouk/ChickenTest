@@ -19,6 +19,8 @@
 			Assert.fail("This code should not be executed");
 		},
 
+		alsoNotExecuted: {},
+
 		htmlEscape: function () {
 			var text = Test.htmlEscape("<> \n\r\n\r");
 			Assert.isEqual("&lt;&gt;&nbsp;<br /><br /><br />", text);
