@@ -1,4 +1,4 @@
-(function () {
+(function (undefined) {
 	"use strict";
 
 		//-------------------------------------------------------------------------------------------//
@@ -64,7 +64,7 @@
 			Assert.isNull(null);
 		},
 
-        passIsNullOrUndefined: function (undefined) {
+        passIsNullOrUndefined: function () {
         	Assert.isNullOrUndefined(null);
         	Assert.isNullOrUndefined(undefined);
 		},

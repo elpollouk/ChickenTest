@@ -276,7 +276,7 @@
 			test.class.beforeTest && test.class.beforeTest();
 			test.func.before && test.func.before();
 
-			test.func.apply(test.class);
+			test.func.apply(test.class, [test.testData]);
 
 			_progress.passed++;
 			_testComplete(true);
@@ -355,26 +355,52 @@
 		_failedToLoad = true;
 	}
 
+	// Check if an object member is a valid test candidate
+	var _isTest = function _isTest(cls, testName) {
+		return (testName !== "beforeTest"
+		 && testName !== "afterTest"
+		 && testName[0] !== "_"
+		 && typeof cls[testName] === "function"
+		 && cls.hasOwnProperty(testName));
+	};
+
+	var _generatePreName = function _generatePreName(classData, classIteration) {
+		var preName = "";
+
+		if (classData.length > 1) {
+			preName = classData[classIteration].testId || (classIteration + 1);
+			preName += ":";
+		}
+
+		return preName;
+	};
+
 	// Scan the Tests name space for tests to run
 	var _scanForTests = function _scanForTests() {
 		for (var className in window.Tests) {
 			if (window.Tests.hasOwnProperty(className)) {
+
 				var cls = window.Tests[className];
 				for (var testName in cls) {
 					// Script private and before/after test functions
-					if (testName !== "beforeTest"
-					 && testName !== "afterTest"
-					 && testName[0] !== "_"
-					 && typeof cls[testName] === "function"
-					 && cls.hasOwnProperty(testName)) {
-					 	// Looks to be a valid test, add it to the list
-						_testList.push({
-							name: className + "." + testName,
-							class: cls,
-							func: cls[testName]
-						});
+					if (_isTest(cls, testName)) {
+
+					 	// Looks to be a valid test, add it to the list with each data item that needs passing in
+					 	var classData = cls.testData || [{}];
+					 	for (var i = 0; i < classData.length; i++) {
+					 		var preName = _generatePreName(classData, i);
+
+							_testList.push({
+								name: preName + className + "." + testName,
+								class: cls,
+								func: cls[testName],
+								testData: classData[i]
+							});
+						}
+						
 					}
 				}
+
 			}
 		}
 	};
