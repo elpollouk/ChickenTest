@@ -388,6 +388,65 @@
 			Assert.isEqual("Spied Exception", spy.exceptions[0].message, "Wrong exception saved");
 			Assert.isEqual("Spied Exception", spy.exceptions[1].message, "Wrong exception saved");
 		},
+
+		monitor_noReturn: function () {
+			var monitor = Test.monitor();
+
+			var r = monitor(1, 2);
+			Assert.isEqual("undefined", typeof r, "Wrong return value");
+			r = monitor("Three");
+			Assert.isEqual("undefined", typeof r, "Wrong return value");
+			r = monitor(4, "V", true);
+			Assert.isEqual("undefined", typeof r, "Wrong return value");
+
+			Assert.isEqual(3, monitor.calls.length, "Wrong number of calls registered");
+			Assert.isSame(1, monitor.calls[0][0], "Wrong argument value saved");
+			Assert.isSame(2, monitor.calls[0][1], "Wrong argument value saved");
+			Assert.isSame("Three", monitor.calls[1][0], "Wrong argument value saved");
+			Assert.isSame(4, monitor.calls[2][0], "Wrong argument value saved");
+			Assert.isSame("V", monitor.calls[2][1], "Wrong argument value saved");
+			Assert.isSame(true, monitor.calls[2][2], "Wrong argument value saved");
+		},
+
+		monitor_singleReturn: function () {
+			var monitor = Test.monitor("foo");
+
+			var r = monitor(3, 4);
+			Assert.isEqual("foo", r, "Wrong return value");
+			r = monitor(5, 6, 7);
+			Assert.isEqual("foo", r, "Wrong return value");
+			r = monitor(1);
+			Assert.isEqual("foo", r, "Wrong return value");
+
+			Assert.isEqual(3, monitor.calls.length, "Wrong number of calls registered");
+			Assert.isSame(3, monitor.calls[0][0], "Wrong argument value saved");
+			Assert.isSame(4, monitor.calls[0][1], "Wrong argument value saved");
+			Assert.isSame(5, monitor.calls[1][0], "Wrong argument value saved");
+			Assert.isSame(6, monitor.calls[1][1], "Wrong argument value saved");
+			Assert.isSame(7, monitor.calls[1][2], "Wrong argument value saved");
+			Assert.isSame(1, monitor.calls[2][0], "Wrong argument value saved");
+		},
+
+		monitor_multipleReturn: function () {
+			var monitor = Test.monitor([1, "two", "C"]);
+
+			var r = monitor("a");
+			Assert.isSame(1, r, "Wrong return value");
+			r = monitor("b", "c");
+			Assert.isSame("two", r, "Wrong return value");
+			r = monitor("d", null);
+			Assert.isSame("C", r, "Wrong return value");
+			r = monitor();
+			Assert.isSame("C", r, "Wrong return value");
+
+			Assert.isEqual(4, monitor.calls.length, "Wrong number of calls registered");
+			Assert.isSame("a", monitor.calls[0][0], "Wrong argument value saved");
+			Assert.isSame("b", monitor.calls[1][0], "Wrong argument value saved");
+			Assert.isSame("c", monitor.calls[1][1], "Wrong argument value saved");
+			Assert.isSame("d", monitor.calls[2][0], "Wrong argument value saved");
+			Assert.isSame(null, monitor.calls[2][1], "Wrong argument value saved");
+			Assert.isSame(0, monitor.calls[3].length, "Wrong argument value saved");
+		},
 	};
 
 	Tests.passedWithBeforeAndAfter.before = function () {
