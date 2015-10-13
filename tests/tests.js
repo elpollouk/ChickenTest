@@ -347,6 +347,23 @@
 			Assert.isEqual(2, spy.returns.length, "Additional returns were registered in the spy");
 		},
 
+		spy_correctThis: function () {
+			var target = {
+				data: 37,
+				func: function () {
+					return this.data;
+				}
+			}
+
+			var spy = Test.spy(target, "func");
+
+			Assert.isSame(37, target.func(), "Target function didn't return correct value");
+			Assert.isSame(1, spy.calls.length, "Wrong number of calls registered");
+			Assert.isSame("undefined", typeof spy.calls[0][0], "Wrong argument data registered");
+			Assert.isSame(37, spy.returns[0], "Wrong return value registered");
+			Assert.isNull(spy.exceptions[0], "Execption was not null");
+		},
+
 		spy_exception: function () {
 			var target = {
 				func: function () { 
