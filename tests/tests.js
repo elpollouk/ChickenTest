@@ -64,13 +64,23 @@
 			Assert.isNull(null);
 		},
 
+		passIsUndefined: function () {
+			Assert.isUndefined(undefined);
+		},
+
         passIsNullOrUndefined: function () {
         	Assert.isNullOrUndefined(null);
         	Assert.isNullOrUndefined(undefined);
 		},
-                                        
+
 		passIsNotNull: function () {
 			Assert.isNotNull({});
+			Assert.isNotNull(undefined);
+		},
+
+		passIsNotUndefined: function () {
+			Assert.isNotUndefined({});
+			Assert.isNotUndefined(null);
 		},
 
 		passExpectedException_any: function () {
@@ -150,12 +160,17 @@
 			Test.log("This test should fail.")
 			Assert.isNull({}, "isNull passed");
 		},
-		
+
+		failIsUndefined: function () {
+			Test.log("This test should fail.");
+			Assert.isUndefined({}, "isUndefined passed");
+		},
+
 		failIsNull_undefined: function (undefined) {
 			Test.log("This test should fail.")
 			Assert.isNull(undefined, "isNull with undefined value passed");
 		},
-		
+
 		failIsNullOrUndefined: function () {
 			Test.log("This test should fail.")
 			Assert.isNullOrUndefined({}, "isNullOrUndefined passed");
@@ -164,6 +179,11 @@
 		failIsNotNull: function () {
 			Test.log("This test should fail.")
 			Assert.isNotNull(null, "isNotNull passed");
+		},
+
+		failIsNotUndefined: function () {
+			Test.log("This test should fail.");
+			Assert.isNotUndefined(undefined, "isNotUndefined passed");
 		},
 
 		failFail: function () {
@@ -198,7 +218,7 @@
 			var target = {
 				mockMe: function(a, b, c) {
 					Assert.areEqual(target, this, "Incorrect this pointer in unmocked function");
-					return a + b + c;					
+					return a + b + c;
 				},
 				dontMock: function () {
 					return 1;
@@ -236,7 +256,7 @@
 			var target = {
 				mockMe: function(a, b, c) {
 					Assert.areEqual(target, this, "Incorrect this pointer in unmocked function");
-					return a + b + c;					
+					return a + b + c;
 				},
 				dontMock: function () {
 					return 1;
@@ -313,7 +333,7 @@
 			var target = {
 				spyMe: function(a, b, c) {
 					Assert.areEqual(target, this, "Incorrect this pointer in spied function");
-					return a + b + c;					
+					return a + b + c;
 				},
 				dontSpy: function () {
 					Assert.areEqual(target, this, "Incorrect this pointer in non-spied function");
@@ -366,7 +386,7 @@
 
 		spy_exception: function () {
 			var target = {
-				func: function () { 
+				func: function () {
 					throw new Error("Spied Exception");
 				}
 			};
