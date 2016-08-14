@@ -83,6 +83,11 @@
 			Assert.isNotUndefined(null);
 		},
 
+		passIsNotNullOrUndefined: function () {
+			Assert.isNotNullOrUndefined(0);
+			Assert.isNotNullOrUndefined(false);
+		},
+
 		passExpectedException_any: function () {
 			Assert.expectedException({}, function () {
 				throw new Error();
@@ -184,6 +189,16 @@
 		failIsNotUndefined: function () {
 			Test.log("This test should fail.");
 			Assert.isNotUndefined(undefined, "isNotUndefined passed");
+		},
+
+		failIsNotNullOrUndefined_null: function () {
+			Test.log("This test should fail.")
+			Assert.isNotNullOrUndefined(null, "isNotNullOrUndefined passed");
+		},
+
+		failIsNotNullOrUndefined_undefined: function () {
+			Test.log("This test should fail.")
+			Assert.isNotNullOrUndefined(undefined, "isNotNullOrUndefined passed");
 		},
 
 		failFail: function () {
