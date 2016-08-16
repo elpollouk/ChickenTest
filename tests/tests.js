@@ -84,6 +84,7 @@
 		},
 
 		passIsNotNullOrUndefined: function () {
+			Assert.isNotNullOrUndefined({});
 			Assert.isNotNullOrUndefined(0);
 			Assert.isNotNullOrUndefined(false);
 		},
@@ -343,6 +344,43 @@
 			Assert.isEqual("Test Exception", mock.exceptions[0].message, "Wrong exception saved");
 			Assert.isEqual("Test Exception", mock.exceptions[1].message, "Wrong exception saved");
 		},
+
+		mockFunction_returnValue: function () {
+			var func = Test.mockFunction(123);
+
+			Assert.isSame(123, func(1), "Incorrect return value from function");
+			Assert.isSame(123, func("A", "b"), "Incorrect return value from function");
+			Assert.isSame(123, func(true, false, 3, "four"), "Incorrect return value from function");
+			Assert.isSame(3, func.calls.length, "Incorrect number of calls recorded");
+			Assert.arrayEqual([1], func.calls[0], "Incorrect arguments stored");
+			Assert.arrayEqual(["A", "b"], func.calls[1], "Incorrect arguments stored");
+			Assert.arrayEqual([true, false, 3, "four"], func.calls[2], "Incorrect arguments stored");
+		},
+
+		mockFunction_noReturnValue: function () {
+			var func = Test.mockFunction();
+
+			Assert.isSame(undefined, func(1), "Incorrect return value from function");
+			Assert.isSame(undefined, func("A", "b"), "Incorrect return value from function");
+			Assert.isSame(undefined, func(true, false, 3, "four"), "Incorrect return value from function");
+			Assert.isSame(3, func.calls.length, "Incorrect number of calls recorded");
+			Assert.arrayEqual([1], func.calls[0], "Incorrect arguments stored");
+			Assert.arrayEqual(["A", "b"], func.calls[1], "Incorrect arguments stored");
+			Assert.arrayEqual([true, false, 3, "four"], func.calls[2], "Incorrect arguments stored");
+		},
+
+		mockFunction_returnValueByFunction: function () {
+			var func = Test.mockFunction(function (a, b, c) {
+				return a + b + c;
+			});
+
+			Assert.isSame(6, func(1, 2, 3), "Incorrect return value from function");
+			Assert.isSame("ABC", func("A", "B", "C"), "Incorrect return value from function");
+			Assert.isSame(2, func.calls.length, "Incorrect number of calls recorded");
+			Assert.arrayEqual([1, 2, 3], func.calls[0], "Incorrect arguments stored");
+			Assert.arrayEqual(["A", "B", "C"], func.calls[1], "Incorrect arguments stored");
+		},
+
 
 		spy: function () {
 			var target = {
