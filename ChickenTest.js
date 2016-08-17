@@ -91,6 +91,13 @@
 			}
 		},
 
+		isInRange: function (minExpected, maxExpected, actual, message) {
+			if ((actual < minExpected) || (maxExpected < actual)) {
+				message = _buildMessage("Value " + actual + " outside of range " + minExpected + " - " + maxExpected, message);
+				throw new Error(message);
+			}
+		},
+
 		fail: function fail(message) {
 			throw new Error(_buildMessage("Failed", message));
 		},

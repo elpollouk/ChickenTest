@@ -89,6 +89,16 @@
 			Assert.isNotNullOrUndefined(false);
 		},
 
+		passIsInRange: function () {
+			Assert.isInRange(3, 5, 3);
+			Assert.isInRange(3, 5, 4);
+			Assert.isInRange(3, 5, 5);
+
+			Assert.isInRange("m", "q", "mike");
+			Assert.isInRange("m", "q", "norman");
+			Assert.isInRange("m", "q", "oswald");
+		},
+
 		passExpectedException_any: function () {
 			Assert.expectedException({}, function () {
 				throw new Error();
@@ -129,41 +139,41 @@
 		},
 
 		failIsEqual: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isEqual(2, 3, "isEqual Passed");
 		},
 
 		failIsSame: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isSame(2, "2", "isSame Passed");
 		},
 
 		failArrayEqual_length: function () {
 			var a1 = [1, 2, 3];
 			var a2 = [];
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.arrayEqual(a1, a2, "arrayEqual Passed");
 		},
 
 		failArrayEqual_content: function () {
 			var a1 = [1, 2, 3];
 			var a2 = ["a", "b", "c"];
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.arrayEqual(a1, a2, "arrayEqual Passed");
 		},
 
 		failIsTrue: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isTrue(false, "isTrue passed");
 		},
 
 		failIsFalse: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isFalse(true, "isFalse passed");
 		},
 
 		failIsNull: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isNull({}, "isNull passed");
 		},
 
@@ -173,17 +183,17 @@
 		},
 
 		failIsNull_undefined: function (undefined) {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isNull(undefined, "isNull with undefined value passed");
 		},
 
 		failIsNullOrUndefined: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isNullOrUndefined({}, "isNullOrUndefined passed");
 		},
 
 		failIsNotNull: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isNotNull(null, "isNotNull passed");
 		},
 
@@ -193,27 +203,37 @@
 		},
 
 		failIsNotNullOrUndefined_null: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isNotNullOrUndefined(null, "isNotNullOrUndefined passed");
 		},
 
 		failIsNotNullOrUndefined_undefined: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.isNotNullOrUndefined(undefined, "isNotNullOrUndefined passed");
 		},
 
+		failIsInRange_below: function () {
+			Test.log("This test should fail.");
+			Assert.isInRange(6, 7, 2, "isInRange passed");
+		},
+
+		failIsInRange_above: function () {
+			Test.log("This test should fail.");
+			Assert.isInRange(6, 7, 10, "isInRange passed");
+		},
+
 		failFail: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.fail("fail passed");
 		},
 
 		failExpectedException_noneThrown: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.expectedException({}, function () {}, "failExpectedException_noneThrown passed");
 		},
 
 		failExpectedException_wrongTypeThrown: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.expectedException({
 				type: RangeError,
 			}, function () {
@@ -222,7 +242,7 @@
 		},
 
 		failExpectedException_wrongMessageThrown: function () {
-			Test.log("This test should fail.")
+			Test.log("This test should fail.");
 			Assert.expectedException({
 				message: /not matched/,
 			}, function () {
