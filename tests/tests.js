@@ -520,6 +520,101 @@
 			Assert.isEqual("Spied Exception", spy.exceptions[0].message, "Wrong exception saved");
 			Assert.isEqual("Spied Exception", spy.exceptions[1].message, "Wrong exception saved");
 		},
+
+		logHtmlElement: function () {
+			var canvas = document.createElement("canvas");
+			canvas.width = 150;
+			canvas.height = 75;
+			var ctx = canvas.getContext("2d");
+
+			ctx.fillStyle = "white";
+			ctx.fillRect(0, 0, 150, 75);
+
+			ctx.fillStyle = "red";
+			ctx.fillRect(68, 0, 14, 100);
+			ctx.fillRect(0, 30, 150, 15);
+			ctx.beginPath();
+	            ctx.moveTo(0, 0);
+				ctx.lineTo(49, 24);
+				ctx.lineTo(37, 24);
+				ctx.lineTo(0, 5);
+				ctx.lineTo(0, 0);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(89, 24);
+				ctx.lineTo(138, 0);
+				ctx.lineTo(149, 0);
+				ctx.lineTo(101, 24);
+				ctx.lineTo(89, 24);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(99, 50);
+				ctx.lineTo(111, 50);
+				ctx.lineTo(149, 69);
+				ctx.lineTo(149, 74);
+				ctx.lineTo(100, 50);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(60, 50);
+				ctx.lineTo(12, 74);
+				ctx.lineTo(0, 74);
+				ctx.lineTo(48, 50);
+				ctx.lineTo(60, 50);
+			ctx.fill();
+
+			ctx.fillStyle = "navy";
+			ctx.beginPath();
+	            ctx.moveTo(0, 9);
+				ctx.lineTo(32, 24);
+				ctx.lineTo(0, 24);
+				ctx.lineTo(0, 9);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(17, 0);
+				ctx.lineTo(62, 0);
+				ctx.lineTo(62, 24);
+				ctx.lineTo(17, 0);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(88, 0);
+				ctx.lineTo(131, 0);
+				ctx.lineTo(88, 21);
+				ctx.lineTo(88, 0);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(116, 24);
+				ctx.lineTo(149, 8);
+				ctx.lineTo(149, 24);
+				ctx.lineTo(116, 24);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(0, 50);
+				ctx.lineTo(32, 50);
+				ctx.lineTo(0, 66);
+				ctx.lineTo(0, 50);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(17, 74);
+				ctx.lineTo(62, 52);
+				ctx.lineTo(62, 74);
+				ctx.lineTo(17, 74);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(88, 53);
+				ctx.lineTo(132, 74);
+				ctx.lineTo(88, 74);
+				ctx.lineTo(88, 53);
+			ctx.fill();
+			ctx.beginPath();
+	            ctx.moveTo(117, 50);
+				ctx.lineTo(149, 50);
+				ctx.lineTo(149, 66);
+				ctx.lineTo(117, 50);
+			ctx.fill();
+
+			Test.log("Loagging a canvas element...");
+			Test.log(canvas);
+		},
 	};
 
 	Tests.passedWithBeforeAndAfter.before = function () {
