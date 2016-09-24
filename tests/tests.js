@@ -612,7 +612,7 @@
 				ctx.lineTo(117, 50);
 			ctx.fill();
 
-			Test.log("Loagging a canvas element...");
+			Test.log("Logging a canvas element...");
 			Test.log(canvas);
 		},
 	};
